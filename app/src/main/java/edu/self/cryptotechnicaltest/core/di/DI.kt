@@ -4,10 +4,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import edu.self.cryptotechnicaltest.core.database.AppDatabase
+import edu.self.cryptotechnicaltest.currencylist.CurrencyListFragment
 import edu.self.cryptotechnicaltest.currencylist.CurrencyListViewModel
 import edu.self.cryptotechnicaltest.demo.DemoViewModel
 import kotlinx.coroutines.*
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 @DelicateCoroutinesApi
@@ -49,11 +51,11 @@ val moduleOfDatabase = module {
 }
 
 val moduleOfViewModel = module {
-    factory {
+    viewModel {
         DemoViewModel(get())
     }
-    factory {
-        CurrencyListViewModel()
+    viewModel { (request: CurrencyListFragment.Request) ->
+        CurrencyListViewModel(request)
     }
 }
 
